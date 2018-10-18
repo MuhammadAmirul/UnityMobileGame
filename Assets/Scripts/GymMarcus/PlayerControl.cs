@@ -7,6 +7,10 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     [Header("Movement Related Vars")]
+    public Joystick joystickMove;
+    public Joystick joystickShoot;
+    public UnitStatsUI statsUI;
+
     public float speed = 8f;
     private Vector3 movement;
     private Rigidbody rb;
@@ -19,22 +23,55 @@ public class PlayerControl : MonoBehaviour
     public float bulletSpeed = 5f;
     public float counterPauseBetweenShots = 0.25f;
     private float counterShots;
-    
-    
+
+    public float baseHP = 20.0f;
+    public float currentHP;
+
+    public float baseSP = 10.0f;
+    public float currentSP;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
 
+    private void Start()
+    {
+        currentHP = baseHP;
+
+    }
+
+    private void UpdateUI()
+    {
+        float valHP = currentHP / baseHP;
+        statsUI.UpdateSliderHP(valHP);
+
+        float valSP = currentSP / baseSP;
+        statsUI.UpdateSliderSP(valSP);
+    }
 
     void FixedUpdate()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h = 0f;
+        float v = 0f;
+        float hs = 0f;
+        float vs = 0f;
 
-        float hs = Input.GetAxisRaw("Horizontal Shoot");
-        float vs = Input.GetAxisRaw("Vertical Shoot");
+        if(Application.platform == RuntimePlatform.Android)
+        {
+            h = joystickMove.Horizontal;
+            v = joystickMove.Vertical;
+
+            hs = joystickShoot.Horizontal;
+            vs = joystickShoot.Vertical;
+        }
+        else {
+            h = Input.GetAxisRaw("Horizontal");
+            v = Input.GetAxisRaw("Vertical");
+
+            hs = Input.GetAxisRaw("Horizontal Shoot");
+            vs = Input.GetAxisRaw("Vertical Shoot");
+        }
 
         Move(h, v);
         Aim(hs, vs);
@@ -95,5 +132,18 @@ public class PlayerControl : MonoBehaviour
             }
         }
     }
-    
+
+    public void Damage(float dmg)
+    {
+        currentHP -= dmg;
+        if(currentHP <= 0f)
+        {
+            currentHP = 0f;
+            Debug.Log("GAME OVER");
+        }
+
+        UpdateUI();
+    }
+
+
 }
