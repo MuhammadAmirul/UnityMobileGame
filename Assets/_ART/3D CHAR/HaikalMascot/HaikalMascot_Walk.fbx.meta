@@ -1,0 +1,212 @@
+fileFormatVersion: 2
+guid: ac412be63cbeee54b8c1d9db2d72d945
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Chest
+    100002: Chest_CTRL
+    100004: Clavicle
+    100006: Clavicle_CTRL
+    100008: //RootNode
+    100010: Head
+    100012: Head_CTRL
+    100014: ikHandle1
+    100016: ikHandle2
+    100018: Left_Foot
+    100020: Left_Leg
+    100022: Left_Leg_CTRL
+    100024: Left_Middlefinger01
+    100026: Left_Middlefinger02
+    100028: Left_Pinky01
+    100030: Left_Pinky02
+    100032: Left_Shoulder
+    100034: Left_Shoulder_CTRL
+    100036: Left_Thumb01
+    100038: Left_Thumb02
+    100040: Left_Wrist
+    100042: Master_CTRL
+    100044: Neck
+    100046: pCone1
+    100048: pCone2
+    100050: pCone3
+    100052: pCone4
+    100054: pCone5
+    100056: pCone6
+    100058: pCone7
+    100060: pCone8
+    100062: pCylinder15
+    100064: Right_Foot
+    100066: Right_Leg
+    100068: Right_Leg_CTRL
+    100070: Right_Middlefinger01
+    100072: Right_Middlefinger02
+    100074: Right_Pinky01
+    100076: Right_Pinky02
+    100078: Right_Shoulder
+    100080: Right_Shoulder_CTRL
+    100082: Right_Thumb01
+    100084: Right_Thumb02
+    100086: Right_Wrist
+    100088: Root
+    100090: Root_CTRL
+    400000: Chest
+    400002: Chest_CTRL
+    400004: Clavicle
+    400006: Clavicle_CTRL
+    400008: //RootNode
+    400010: Head
+    400012: Head_CTRL
+    400014: ikHandle1
+    400016: ikHandle2
+    400018: Left_Foot
+    400020: Left_Leg
+    400022: Left_Leg_CTRL
+    400024: Left_Middlefinger01
+    400026: Left_Middlefinger02
+    400028: Left_Pinky01
+    400030: Left_Pinky02
+    400032: Left_Shoulder
+    400034: Left_Shoulder_CTRL
+    400036: Left_Thumb01
+    400038: Left_Thumb02
+    400040: Left_Wrist
+    400042: Master_CTRL
+    400044: Neck
+    400046: pCone1
+    400048: pCone2
+    400050: pCone3
+    400052: pCone4
+    400054: pCone5
+    400056: pCone6
+    400058: pCone7
+    400060: pCone8
+    400062: pCylinder15
+    400064: Right_Foot
+    400066: Right_Leg
+    400068: Right_Leg_CTRL
+    400070: Right_Middlefinger01
+    400072: Right_Middlefinger02
+    400074: Right_Pinky01
+    400076: Right_Pinky02
+    400078: Right_Shoulder
+    400080: Right_Shoulder_CTRL
+    400082: Right_Thumb01
+    400084: Right_Thumb02
+    400086: Right_Wrist
+    400088: Root
+    400090: Root_CTRL
+    2100000: Mascot_Colour
+    2100002: blinn2
+    2100004: lambert1
+    2300000: pCone1
+    2300002: pCone2
+    2300004: pCone3
+    2300006: pCone4
+    2300008: pCone5
+    2300010: pCone6
+    2300012: pCone7
+    2300014: pCone8
+    3300000: pCone1
+    3300002: pCone2
+    3300004: pCone3
+    3300006: pCone4
+    3300008: pCone5
+    3300010: pCone6
+    3300012: pCone7
+    3300014: pCone8
+    4300000: pCylinder15
+    4300002: pCone1
+    4300004: pCone2
+    4300006: pCone3
+    4300008: pCone4
+    4300010: pCone5
+    4300012: pCone6
+    4300014: pCone7
+    4300016: pCone8
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: pCylinder15
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 1
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 1cb74ec2e21c6ab448a638779e2456d9,
+    type: 3}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
