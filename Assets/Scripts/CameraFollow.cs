@@ -21,26 +21,25 @@ public class CameraFollow : MonoBehaviour
 	void Update ()
     {
         Vector3 pos = target.position;
-        pos.y = transform.position.y;
         //  pos.x = Mathf.Clamp(pos.x, -panLimit.x, panLimit.x);
         //  pos.z = Mathf.Clamp(pos.z, -panLimit.y, panLimit.y);
 
-        if (pos.x > 6.0f)
+        if (pos.x > 8.7f)
         {
-            pos.x = 6.0f;
+            pos.x = 8.7f;
         }
-        else if (pos.x < -6.0f)
+        else if (pos.x < -6.7f)
         {
-            pos.x = -6.0f;
+            pos.x = -6.7f;
         }
 
-        if (pos.z > 1.0f)
+        if (pos.z > 15.0f)
         {
-            pos.z = 1.0f;
+            pos.z = 15.0f;
         }
-        else if (pos.z < -15f)
+        else if (pos.z < -3.0f)
         {
-            pos.z = -15.0f;
+            pos.z = -3.0f;
         }
 
         transform.position = pos + offset;

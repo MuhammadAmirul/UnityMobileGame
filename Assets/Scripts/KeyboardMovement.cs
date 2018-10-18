@@ -4,32 +4,70 @@ using UnityEngine;
 
 public class KeyboardMovement : MonoBehaviour
 {
-    private float speed = 2.0f;
+    public float speed = 2.0f;
+    public float rotationSpeed = 100.0f;
+
+    public GameObject bullet;
+    public Transform bulletSpawn;
+
+    private float release;
+    private float overheating;
+    private float cooldown;
+    private bool overheat;
 
     // Use this for initialization
     void Start ()
     {
         
-	}
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        float translation = Input.GetAxis("Vertical") * speed;
+        float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
+
+        // Make it move 10 meters per second instead of 10 meters per frame...
+        translation *= Time.deltaTime;
+        rotation *= Time.deltaTime;
+
+        // Move translation along the object's z-axis
+        transform.Translate(0, 0, translation);
+
+        // Rotate around our y-axis
+        transform.Rotate(0, rotation, 0);
+
+        if (Input.GetKey(KeyCode.Space) && overheat == false)
         {
-            transform.position += Vector3.left * speed * Time.deltaTime;
+            release += Time.deltaTime;
+            overheating += 0.05f;
+            print(overheating + "overheat");
+            if (release >= 0.1f)
+            {
+                SpawnBullet();
+                release = 0.0f;
+            }
+
+            if(overheating >= 2.0f)
+            {
+                overheat = true;
+            } 
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+
+        if (overheat == true)
         {
-            transform.position += Vector3.right * speed * Time.deltaTime;
+            overheating -= Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.UpArrow))
+
+        if (overheating <= 0.0f)
         {
-            transform.position += Vector3.forward * speed * Time.deltaTime;
+            overheating = 0.0f;
+            overheat = false;
         }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.position += Vector3.back * speed * Time.deltaTime;
-        }
+    }
+
+    void SpawnBullet()
+    {
+        Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
     }
 }
