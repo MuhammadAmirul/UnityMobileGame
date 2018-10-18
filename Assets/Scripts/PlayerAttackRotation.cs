@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyboardMovement : MonoBehaviour
+public class PlayerAttackRotation : MonoBehaviour
 {
-    public float speed = 5.0f;
-    public float rotationSpeed = 100.0f;
+    protected AttackRotationJoystick joystick;
 
     public GameObject bullet;
     public Transform bulletSpawn;
@@ -17,27 +16,19 @@ public class KeyboardMovement : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+        joystick = FindObjectOfType<AttackRotationJoystick>();
+        overheat = false;
+	}
+	
+	// Update is called once per frame
+	void Update ()
     {
-        float movement_z = Input.GetAxis("Vertical") * speed * Time.deltaTime;
-        float rotation = Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
-
-        // Move translation along the object's z-axis
-        transform.Translate(0, 0, movement_z);
-
-        // Rotate around our y-axis
-        transform.Rotate(0, rotation, 0);
-
         overheating -= Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.Space) && overheat == false)
+        if (joystick.Pressed && overheat == false)
         {
             release += Time.deltaTime;
-            
+
             if (release >= 0.1f)
             {
                 SpawnBullet();
