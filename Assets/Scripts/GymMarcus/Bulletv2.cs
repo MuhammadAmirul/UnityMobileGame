@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour {
+public class Bulletv2 : MonoBehaviour {
 
     public float speed;
     public int bulletDamage = 1;
@@ -19,7 +19,7 @@ public class Bullet : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "ENEMY")
+        if(collision.gameObject.tag == "Enemy")
         {
             Debug.Log("Hit Enemy!");
             collision.gameObject.GetComponent<EnemyControl>().Damage(bulletDamage);

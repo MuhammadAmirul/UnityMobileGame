@@ -13,7 +13,7 @@ public class PlayerControl : MonoBehaviour
 
     [Space]
     [Header("Shooting Related Vars")]
-    public Bullet bullet;
+    public Bulletv2 bullet;
     public Transform tTarget;
     private bool isFiring = false;
     public float bulletSpeed = 5f;
@@ -89,7 +89,7 @@ public class PlayerControl : MonoBehaviour
                 counterShots = counterPauseBetweenShots;
 
                 //Create bullet.
-                Bullet newBullet = Instantiate(bullet, tTarget.position, tTarget.rotation) as Bullet;
+                Bulletv2 newBullet = Instantiate(bullet, tTarget.position, tTarget.rotation) as Bulletv2;
                 newBullet.speed = bulletSpeed;
                 newBullet.gameObject.SetActive(true);
             }
