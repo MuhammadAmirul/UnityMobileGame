@@ -23,7 +23,11 @@ GameObject:
   - component: {fileID: 23031467835282468}
   - component: {fileID: 135158137684369854}
   - component: {fileID: 114952093512894386}
+<<<<<<< HEAD:Assets/Scripts/Bullet.prefab
   - component: {fileID: 54883466902384246}
+=======
+  - component: {fileID: 54843103355017854}
+>>>>>>> 897770bbfae3dadb61fbe41db85d14a9e18c884e:Assets/Scripts/Bullet.prefab
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
@@ -86,7 +90,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1886802509406106}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD:Assets/Scripts/Bullet.prefab
 --- !u!54 &54883466902384246
+=======
+--- !u!54 &54843103355017854
+>>>>>>> 897770bbfae3dadb61fbe41db85d14a9e18c884e:Assets/Scripts/Bullet.prefab
 Rigidbody:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -39,12 +40,33 @@ public class Enemy : MonoBehaviour
         }
 	}
 
+<<<<<<< HEAD
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag.Equals("Bullet"))
         {
             health -= 2;
             print("health" + health);
+=======
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag.Equals("Player"))
+        {
+            GetComponent<NavMeshAgent>().speed = 0.0f;
+        }
+
+        if (col.gameObject.tag.Equals("Bullet"))
+        {
+            health -= 2;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!other.gameObject.tag.Equals("Player"))
+        {
+            GetComponent<NavMeshAgent>().speed = 2.0f;
+>>>>>>> 897770bbfae3dadb61fbe41db85d14a9e18c884e
         }
     }
 }

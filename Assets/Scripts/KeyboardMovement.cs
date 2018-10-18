@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KeyboardMovement : MonoBehaviour
 {
-    public float speed = 2.0f;
+    public float speed = 5.0f;
     public float rotationSpeed = 100.0f;
 
     public GameObject bullet;
@@ -25,26 +25,25 @@ public class KeyboardMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float translation = Input.GetAxis("Vertical") * speed;
-        float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
-
-        // Make it move 10 meters per second instead of 10 meters per frame...
-        translation *= Time.deltaTime;
-        rotation *= Time.deltaTime;
+        float movement_z = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        float rotation = Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
 
         // Move translation along the object's z-axis
-        transform.Translate(0, 0, translation);
+        transform.Translate(0, 0, movement_z);
 
         // Rotate around our y-axis
         transform.Rotate(0, rotation, 0);
 
         overheating -= Time.deltaTime;
 
+<<<<<<< HEAD
         if(moveJoystick.InputDirection != Vector3.zero)
         {
             
         }
 
+=======
+>>>>>>> 897770bbfae3dadb61fbe41db85d14a9e18c884e
         if (Input.GetKey(KeyCode.Space) && overheat == false)
         {
             release += Time.deltaTime;
