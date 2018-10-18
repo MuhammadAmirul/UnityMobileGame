@@ -12,8 +12,9 @@ public class KeyboardMovement : MonoBehaviour
 
     private float release;
     private float overheating;
-    private float cooldown;
     private bool overheat;
+
+    public VirtualJoystick moveJoystick;
 
     // Use this for initialization
     void Start ()
@@ -37,31 +38,37 @@ public class KeyboardMovement : MonoBehaviour
         // Rotate around our y-axis
         transform.Rotate(0, rotation, 0);
 
+        overheating -= Time.deltaTime;
+
+        if(moveJoystick.InputDirection != Vector3.zero)
+        {
+            
+        }
+
         if (Input.GetKey(KeyCode.Space) && overheat == false)
         {
             release += Time.deltaTime;
-            overheating += 0.05f;
-            print(overheating + "overheat");
+            
             if (release >= 0.1f)
             {
                 SpawnBullet();
                 release = 0.0f;
+                overheating += 0.4f;
             }
-
-            if(overheating >= 2.0f)
-            {
-                overheat = true;
-            } 
         }
 
-        if (overheat == true)
-        {
-            overheating -= Time.deltaTime;
-        }
-
-        if (overheating <= 0.0f)
+        if (overheating < 0.0f)
         {
             overheating = 0.0f;
+        }
+
+        if (overheating >= 2.0f)
+        {
+            overheat = true;
+        }
+
+        if (overheating < 2.0f)
+        {
             overheat = false;
         }
     }

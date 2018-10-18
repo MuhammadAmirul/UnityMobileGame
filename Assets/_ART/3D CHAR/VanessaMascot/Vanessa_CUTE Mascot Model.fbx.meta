@@ -1,0 +1,189 @@
+fileFormatVersion: 2
+guid: 255a378dd05afa54c90c22cc89dfa9aa
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Chest
+    100002: Chest_CTRL
+    100004: ikHandle1
+    100006: ikHandle2
+    100008: joint10
+    100010: joint29
+    100012: joint7
+    100014: joint8
+    100016: joint9
+    100018: left
+    100020: Left_Foot
+    100022: Left_Leg
+    100024: Left_Leg_Ctrl
+    100026: Left_MiddleFinger01
+    100028: Left_MiddleFinger02
+    100030: Left_Pinky01
+    100032: Left_Pinky02
+    100034: Left_Shoulder
+    100036: Left_Shoulder_CTRL
+    100038: Left_Thumb01
+    100040: Left_Thumb02
+    100042: Left_Wrist
+    100044: Mascot
+    100046: Master_CTRL
+    100048: Right_Foot
+    100050: Right_InnerShoulder
+    100052: Right_Leg
+    100054: Right_Leg_Ctrl
+    100056: Right_MiddleFinger01
+    100058: Right_MiddleFinger02
+    100060: Right_Pinky01
+    100062: Right_Pinky02
+    100064: Right_Shoulder
+    100066: Right_Shoulder_CTRL
+    100068: Right_Thumb01
+    100070: Right_Thumb02
+    100072: Right_Wrist
+    100074: Root
+    100076: Root_CTRL
+    100078: //RootNode
+    400000: Chest
+    400002: Chest_CTRL
+    400004: ikHandle1
+    400006: ikHandle2
+    400008: joint10
+    400010: joint29
+    400012: joint7
+    400014: joint8
+    400016: joint9
+    400018: left
+    400020: Left_Foot
+    400022: Left_Leg
+    400024: Left_Leg_Ctrl
+    400026: Left_MiddleFinger01
+    400028: Left_MiddleFinger02
+    400030: Left_Pinky01
+    400032: Left_Pinky02
+    400034: Left_Shoulder
+    400036: Left_Shoulder_CTRL
+    400038: Left_Thumb01
+    400040: Left_Thumb02
+    400042: Left_Wrist
+    400044: Mascot
+    400046: Master_CTRL
+    400048: Right_Foot
+    400050: Right_InnerShoulder
+    400052: Right_Leg
+    400054: Right_Leg_Ctrl
+    400056: Right_MiddleFinger01
+    400058: Right_MiddleFinger02
+    400060: Right_Pinky01
+    400062: Right_Pinky02
+    400064: Right_Shoulder
+    400066: Right_Shoulder_CTRL
+    400068: Right_Thumb01
+    400070: Right_Thumb02
+    400072: Right_Wrist
+    400074: Root
+    400076: Root_CTRL
+    400078: //RootNode
+    2000000: left
+    2100000: blinn2
+    2100002: lambert4
+    4300000: Mascot
+    9500000: //RootNode
+    13700000: Mascot
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blinn2
+    second: {fileID: 2100000, guid: cc1c16000285fb74286843bfa7ac3870, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert4
+    second: {fileID: 2100000, guid: 185ba03f76828254288c0b62809196e0, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 31_Vanessa_MascotUVcoloured
+    second: {fileID: 2800000, guid: 2ae5f280c0b01db4ba8a6f3d61342810, type: 3}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
