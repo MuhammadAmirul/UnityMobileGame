@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Bulletv2 : MonoBehaviour {
 
-    public float speed;
-    public int bulletDamage = 1;
 
+    public float speed;
+    public float bulletDamage = 1f;
+    public string bulletOwner = "Player";   //"Player" or "Enemy"
 	// Use this for initialization
 	void Start () {
 		
@@ -19,12 +20,21 @@ public class Bulletv2 : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if (bulletOwner == "Player")
         {
-            Debug.Log("Hit Enemy!");
-            collision.gameObject.GetComponent<EnemyControl>().Damage(bulletDamage);
+            if (collision.gameObject.tag == "Enemy")
+            {
+                //Debug.Log("Hit Enemy!");
+                collision.gameObject.GetComponent<EnemyControl>().Damage(bulletDamage);
+            }
         }
-
+        else
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                collision.gameObject.GetComponent<PlayerControl>().Damage(bulletDamage);
+            }
+        }
         Destroy(this.gameObject);
         
     }
