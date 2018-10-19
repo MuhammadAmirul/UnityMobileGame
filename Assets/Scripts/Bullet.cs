@@ -15,12 +15,23 @@ public class Bullet : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        transform.position += transform.up * speed * Time.deltaTime;
+        transform.position += transform.forward * speed * Time.deltaTime;
 	}
 
     void OnTriggerEnter(Collider col)
     {
+
+        
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
         if (col.gameObject.tag.Equals("Enemy"))
+        {
+            Destroy(gameObject);
+        }
+
+        if (col.gameObject.tag.Equals("Wall"))
         {
             Destroy(gameObject);
         }

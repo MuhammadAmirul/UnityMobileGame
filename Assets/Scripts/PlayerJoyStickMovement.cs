@@ -5,18 +5,20 @@ using UnityEngine;
 public class PlayerJoyStickMovement : MonoBehaviour
 {
     public float speed = 5.0f;
-    public float rotationSpeed = 100.0f;
+    public float rotationSpeed = 150.0f;
 
-    protected Joystick joystick;
+    protected FixedJoystick joystick;
+
+    public Animator anim;
 
 	// Use this for initialization
 	void Start ()
     {
-        joystick = FindObjectOfType<Joystick>();
+        joystick = FindObjectOfType<FixedJoystick>();
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         //var rigidbody = GetComponent<Rigidbody>();
 
@@ -25,6 +27,16 @@ public class PlayerJoyStickMovement : MonoBehaviour
         // Move translation along the object's z-axis
         transform.position += new Vector3(joystick.Horizontal * speed * Time.deltaTime, 0, joystick.Vertical * speed * Time.deltaTime);
 
+        transform.Rotate(0, joystick.Horizontal * speed * Time.deltaTime, 0);
+
         // Rotate around our y-axis
+        if (!joystick.Pressed)
+        {
+            anim.Play("idle");
+        }
+        if (joystick.Pressed)
+        {
+            anim.Play("walk");
+        }
     }
 }

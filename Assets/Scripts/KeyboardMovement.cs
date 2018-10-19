@@ -36,14 +36,6 @@ public class KeyboardMovement : MonoBehaviour
 
         overheating -= Time.deltaTime;
 
-<<<<<<< HEAD
-        if(moveJoystick.InputDirection != Vector3.zero)
-        {
-            
-        }
-
-=======
->>>>>>> 897770bbfae3dadb61fbe41db85d14a9e18c884e
         if (Input.GetKey(KeyCode.Space) && overheat == false)
         {
             release += Time.deltaTime;
