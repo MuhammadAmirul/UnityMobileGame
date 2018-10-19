@@ -33,9 +33,9 @@ public class CameraFollow : MonoBehaviour
             pos.x = -6.7f;
         }
 
-        if (pos.z > 15.0f)
+        if (pos.z > 16.0f)
         {
-            pos.z = 15.0f;
+            pos.z = 16.0f;
         }
         else if (pos.z < -3.0f)
         {
