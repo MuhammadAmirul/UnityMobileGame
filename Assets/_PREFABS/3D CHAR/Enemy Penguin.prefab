@@ -2589,7 +2589,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1048631270094932}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.9, y: 0, z: 35.09}
+  m_LocalPosition: {x: 9.63, y: -0.724, z: 18.95}
   m_LocalScale: {x: 90, y: 90, z: 90}
   m_Children:
   - {fileID: 4464363316116804}
@@ -4459,7 +4459,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.01, y: 0.01181896, z: 0.01}
-  m_Center: {x: 0, y: 0.00607223, z: 0}
+  m_Center: {x: 0, y: 0.006, z: 0}
 --- !u!95 &95153460329289424
 Animator:
   serializedVersion: 3
@@ -4584,12 +4584,15 @@ MonoBehaviour:
   cam: {fileID: 0}
   agent: {fileID: 195376293437504926}
   health: 10
+  maxHealth: 10
   anim: {fileID: 95153460329289424}
   enemyBullet: {fileID: 1977558606237732, guid: 0cd8259061817464e97bab9c99602f58,
     type: 2}
   spawnBullet:
   - {fileID: 4228139234801522}
   - {fileID: 4273103331222502}
+  healthBar: {fileID: 114434570410263544}
+  HealthBar: {fileID: 1293319531823746}
 --- !u!135 &135150882493687390
 SphereCollider:
   m_ObjectHideFlags: 1

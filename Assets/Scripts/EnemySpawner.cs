@@ -12,7 +12,12 @@ public class EnemySpawner : MonoBehaviour
     private float timeToSpawn;
     private float bigSpawn;
 
+    public int addEnemies;
+    public static int killCount;
+
     public Text timerText;
+    public Text enemies;
+    public Text killCountText;
 
 	// Use this for initialization
 	void Start ()
@@ -27,6 +32,8 @@ public class EnemySpawner : MonoBehaviour
         timeToSpawn += Time.deltaTime;
 
         timerText.text = Mathf.Round(Timer).ToString();
+        enemies.text = addEnemies.ToString();
+        killCountText.text = killCount.ToString();
 
         if(Timer >= 45f)
         {
@@ -39,6 +46,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 SpawnEnemy();
                 timeToSpawn = 0f;
+                addEnemies += 1;
             }
         }
 
@@ -48,6 +56,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 SpawnEnemy();
                 timeToSpawn = 0f;
+                addEnemies += 1;
             }
         }
 
@@ -57,12 +66,14 @@ public class EnemySpawner : MonoBehaviour
             {
                 SpawnEnemy();
                 timeToSpawn = 0f;
+                addEnemies += 1;
             }
 
             if (bigSpawn >= 8f)
             {
                 SpawnBigEnemy();
                 bigSpawn = 0f;
+                addEnemies += 1;
             }
         }
 	}

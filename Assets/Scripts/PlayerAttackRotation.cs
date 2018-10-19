@@ -30,28 +30,30 @@ public class PlayerAttackRotation : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        // Player's health UI
         overheatBar.fillAmount = overheating / maxOverheating;
 
         overheating -= Time.deltaTime;
 
+        // Joystick not pressed and is not overheat, play player's Shooting animation with shooting intervals
         if (joystick.Pressed && overheat == false)
         {
             release += Time.deltaTime;
             animShoot.Play("shooting");
 
-            if (release >= 0.1f)
+            if (release >= 0.1f) // With every bullet that spawns, increase overheating
             {
                 SpawnBullet();
                 release = 0.0f;
                 overheating += 0.4f;
             }
         }
-
+        // Overheating is less than 0, make it to 0
         if (overheating < 0.0f)
         {
             overheating = 0.0f;
         }
-
+        // Overheating is greater or equals to maxOverheating, overheat is true
         if (overheating >= maxOverheating)
         {
             overheat = true;

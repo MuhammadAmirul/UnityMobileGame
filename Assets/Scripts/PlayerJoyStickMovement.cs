@@ -5,7 +5,10 @@ using UnityEngine;
 public class PlayerJoyStickMovement : MonoBehaviour
 {
     public float speed = 5.0f;
-    public float rotationSpeed = 150.0f;
+    public float rotationSpeed = 100.0f;
+
+    private bool walking;
+    private bool idle;
 
     protected FixedJoystick joystick;
 
@@ -24,19 +27,31 @@ public class PlayerJoyStickMovement : MonoBehaviour
 
         //rigidbody.velocity = new Vector3(joystick.Horizontal * 5f, rigidbody.velocity.y, joystick.Vertical * 5f);
 
-        // Move translation along the object's z-axis
+        // Move translation along the object's x and z axis
         transform.position += new Vector3(joystick.Horizontal * speed * Time.deltaTime, 0, joystick.Vertical * speed * Time.deltaTime);
 
-        transform.Rotate(0, joystick.Horizontal * speed * Time.deltaTime, 0);
-
-        // Rotate around our y-axis
+        //Joystick not pressed, play player's Idle animation
         if (!joystick.Pressed)
         {
-            anim.Play("idle");
+            walking = false;
+            idle = true;
         }
-        if (joystick.Pressed)
+        if (joystick.Pressed) //Joystick pressed, play player's Walking animation
         {
-            anim.Play("walk");
+            walking = true;
+            idle = false;
+        }
+
+        if (!walking && idle)
+        {
+            anim.SetBool("walk", false);
+            anim.SetBool("idle", true);
+        }
+
+        if (walking && !idle)
+        {
+            anim.SetBool("walk", true);
+            anim.SetBool("idle", false);
         }
     }
 }

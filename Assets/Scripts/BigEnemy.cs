@@ -54,13 +54,14 @@ public class BigEnemy : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(gameObject);
             dying += Time.deltaTime;
+            EnemySpawner.killCount += 1;
             anim.Play("Death");
 
             if (dying >= 1.5f)
             {
                 Destroy(gameObject);
+                dying = 0.0f;
             }
         }
 

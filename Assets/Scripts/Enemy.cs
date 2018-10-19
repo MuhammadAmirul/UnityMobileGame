@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     public Camera cam;
     public NavMeshAgent agent;
     private bool isMoving;
+    private bool dead;
 
     private float delay;
     private float dying;
@@ -52,25 +53,33 @@ public class Enemy : MonoBehaviour
             agent.SetDestination(player.position);
         }
 
-        if (health == 10f)
+        if (health >= 10f)
         {
             HealthBar.gameObject.SetActive(false);
+            dead = false;
         }
         else
         {
             HealthBar.gameObject.SetActive(true);
         }
 
-        if (health <= 0)
+        if (health <= 0f)
         {
-            Destroy(gameObject);
             dying += Time.deltaTime;
             anim.Play("Death");
+            EnemySpawner.killCount += 1;
 
-            if (dying >= 1.5f)
+            if (dying >= 0.5f)
             {
-                Destroy(gameObject);
+                dying = 0.0f;
+                dead = true;
             }
+        }
+
+        if (dead == true)
+        {
+            EnemySpawner.killCount += 1;
+            Destroy(gameObject);
         }
 
         if (!isMoving)

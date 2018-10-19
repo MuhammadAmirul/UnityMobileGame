@@ -33,13 +33,13 @@ public class CameraFollow : MonoBehaviour
             pos.x = -6.7f;
         }
 
-        if (pos.z > 16.0f)
+        if (pos.z > 18.0f)
         {
-            pos.z = 16.0f;
+            pos.z = 18.0f;
         }
-        else if (pos.z < -3.0f)
+        else if (pos.z < -2.0f)
         {
-            pos.z = -3.0f;
+            pos.z = -2.0f;
         }
 
         transform.position = pos + offset;
