@@ -25,7 +25,7 @@ public class BigEnemy : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        GetComponent<NavMeshAgent>().speed = 1.0f;
+        GetComponent<NavMeshAgent>().speed = 1.5f;
         isMoving = true;
         health = maxHealth;
     }
@@ -79,7 +79,7 @@ public class BigEnemy : MonoBehaviour
         else
         {
             anim.Play("Walk");
-            GetComponent<NavMeshAgent>().speed = 1.0f;
+            GetComponent<NavMeshAgent>().speed = 1.5f;
         }
     }
 

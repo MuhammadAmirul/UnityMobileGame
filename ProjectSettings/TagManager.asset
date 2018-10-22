@@ -9,6 +9,7 @@ TagManager:
   - PlayerShooting
   - Wall
   - Enemy Bullet
+  - Melee
   layers:
   - Default
   - TransparentFX

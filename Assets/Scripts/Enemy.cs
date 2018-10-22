@@ -65,6 +65,7 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0f)
         {
+            GetComponent<NavMeshAgent>().speed = 0.0f;
             dying += Time.deltaTime;
             anim.Play("Death");
             EnemySpawner.killCount += 1;

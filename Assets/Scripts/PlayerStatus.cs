@@ -6,32 +6,35 @@ using UnityEngine.UI;
 public class PlayerStatus : MonoBehaviour
 {
     public Image healthbar;
+    public GameObject loseGame;
 
-    public float health;
+    public static float health;
     public float maxHealth = 100f;
 
     private float dying;
 
     public Animator anim;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         health = maxHealth;
-	}
+        loseGame.gameObject.SetActive(false);
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
         healthbar.fillAmount = health / maxHealth;
 
-        if (health <= 0)
+        if (health <= 0f)
         {
             dying += Time.deltaTime;
             anim.Play("death");
-            if(dying >= 0.8f)
+            if(dying >= 1.2f)
             {
                 Destroy(gameObject);
+                loseGame.gameObject.SetActive(true);
             }
             
         }
@@ -42,6 +45,10 @@ public class PlayerStatus : MonoBehaviour
         if (col.gameObject.tag.Equals("Enemy Bullet"))
         {
             health -= 5f;
+        }
+        if (col.gameObject.tag.Equals("Melee"))
+        {
+            health -= 10f;
         }
     }
 }
