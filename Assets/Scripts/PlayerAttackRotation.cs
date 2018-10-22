@@ -15,7 +15,7 @@ public class PlayerAttackRotation : MonoBehaviour
     private float maxOverheating = 2.0f;
     private bool overheat;
 
-    public Animator animShoot;
+    public Animator anim;
 
     public Image overheatBar;
 
@@ -39,7 +39,9 @@ public class PlayerAttackRotation : MonoBehaviour
         if (joystick.Pressed && overheat == false)
         {
             release += Time.deltaTime;
-            animShoot.Play("shooting");
+            anim.SetTrigger("isShooting");
+            anim.ResetTrigger("isWalking");
+            anim.ResetTrigger("isIdle");
 
             if (release >= 0.1f) // With every bullet that spawns, increase overheating
             {
@@ -57,8 +59,10 @@ public class PlayerAttackRotation : MonoBehaviour
         if (overheating >= maxOverheating)
         {
             overheat = true;
+            anim.SetTrigger("isWalking");
+            anim.ResetTrigger("isShooting");
         }
-
+        // Overheating is less than maxOverheating, overheat is false
         if (overheating < maxOverheating)
         {
             overheat = false;

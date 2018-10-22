@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     public Camera cam;
     public NavMeshAgent agent;
     private bool isMoving;
+    private bool isShooting;
     private bool dead;
 
     private float delay;
@@ -27,6 +28,8 @@ public class Enemy : MonoBehaviour
     public Image healthBar;
     public GameObject HealthBar;
 
+    Collider enemycol;
+
     //private float speed = 3.0f;
 
     // Use this for initialization
@@ -34,7 +37,9 @@ public class Enemy : MonoBehaviour
     {
         GetComponent<NavMeshAgent>().speed = 2.0f;
         isMoving = true;
+        isShooting = false;
         health = maxHealth;
+        enemycol = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -53,7 +58,7 @@ public class Enemy : MonoBehaviour
             agent.SetDestination(player.position);
         }
 
-        if (health >= 10f)
+        if (health == 10f)
         {
             HealthBar.gameObject.SetActive(false);
             dead = false;
@@ -65,40 +70,18 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0f)
         {
-            GetComponent<NavMeshAgent>().speed = 0.0f;
-            dying += Time.deltaTime;
-            anim.Play("Death");
-            EnemySpawner.killCount += 1;
-
-            if (dying >= 0.5f)
-            {
-                dying = 0.0f;
-                dead = true;
-            }
+            dead = true;
+            Die();
+            enemycol.enabled = false;
         }
 
-        if (dead == true)
+        if (!isMoving && isShooting)
         {
-            EnemySpawner.killCount += 1;
-            Destroy(gameObject);
+            StopAndShoot();
         }
-
-        if (!isMoving)
+        else if (isMoving && !isShooting)
         {
-            transform.LookAt(player);
-            GetComponent<NavMeshAgent>().speed = 0.0f;
-            delay += Time.deltaTime;
-            anim.Play("Shooting");
-            if (delay >= 0.4f)
-            {
-                delay = 0.0f;
-                SpawnBullet();
-            }
-        }
-        else
-        {
-            anim.Play("Walk");
-            GetComponent<NavMeshAgent>().speed = 2.0f;
+            Walk();
         }
 	}
 
@@ -107,6 +90,7 @@ public class Enemy : MonoBehaviour
         if (col.gameObject.tag.Equals("Player"))
         {
             isMoving = false;
+            isShooting = true;
         }
     }
 
@@ -123,6 +107,7 @@ public class Enemy : MonoBehaviour
         if (!col.gameObject.tag.Equals("Player"))
         {
             isMoving = true;
+            isShooting = false;
         }
     }
 
@@ -130,5 +115,36 @@ public class Enemy : MonoBehaviour
     {
         Instantiate(enemyBullet, spawnBullet[0].position, spawnBullet[0].rotation);
         Instantiate(enemyBullet, spawnBullet[1].position, spawnBullet[1].rotation);
+    }
+
+    void StopAndShoot()
+    {
+        transform.LookAt(player);
+        GetComponent<NavMeshAgent>().speed = 0.0f;
+        delay += Time.deltaTime;
+        anim.Play("Shooting");
+        if (delay >= 0.4f)
+        {
+            delay = 0.0f;
+            SpawnBullet();
+        }
+    }
+
+    void Walk()
+    {
+        anim.Play("Walk");
+        GetComponent<NavMeshAgent>().speed = 2.0f;
+    }
+
+    void Die()
+    {
+        if (dead)
+        {
+            isMoving = false;
+            isShooting = false;
+            GetComponent<NavMeshAgent>().speed = 0.0f;
+            Destroy(gameObject, 1.5f);
+            anim.Play("Death");
+        }
     }
 }

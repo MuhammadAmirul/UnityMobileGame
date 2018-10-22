@@ -9,7 +9,7 @@ public class HealthBarPosition : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        rotation = transform.rotation;
+        
 	}
 	
 	// Update is called once per frame

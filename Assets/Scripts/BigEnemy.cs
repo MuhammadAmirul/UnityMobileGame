@@ -10,6 +10,8 @@ public class BigEnemy : MonoBehaviour
     public Camera cam;
     public NavMeshAgent agent;
     private bool isMoving;
+    private bool isMelee;
+    private bool dead;
 
     private float delay;
     private float dying;
@@ -27,6 +29,7 @@ public class BigEnemy : MonoBehaviour
     {
         GetComponent<NavMeshAgent>().speed = 1.5f;
         isMoving = true;
+        isMelee = false;
         health = maxHealth;
     }
 	
@@ -46,6 +49,7 @@ public class BigEnemy : MonoBehaviour
         if (health == 14f)
         {
             HealthBar.gameObject.SetActive(false);
+            dead = false;
         }
         else
         {
@@ -54,32 +58,17 @@ public class BigEnemy : MonoBehaviour
 
         if (health <= 0)
         {
-            dying += Time.deltaTime;
-            EnemySpawner.killCount += 1;
-            anim.Play("Death");
-
-            if (dying >= 1.5f)
-            {
-                Destroy(gameObject);
-                dying = 0.0f;
-            }
+            dead = true;
+            Die();
         }
 
-        if (!isMoving)
+        if (!isMoving && isMelee)
         {
-            GetComponent<NavMeshAgent>().speed = 0.0f;
-            delay += Time.deltaTime;
-            
-            if (delay >= 0.4f)
-            {
-                anim.Play("Melee");
-                delay = 0.0f;
-            }
+            StopAndHit();
         }
-        else
+        else if (isMoving && !isMelee)
         {
-            anim.Play("Walk");
-            GetComponent<NavMeshAgent>().speed = 1.5f;
+            Walk();
         }
     }
 
@@ -88,6 +77,7 @@ public class BigEnemy : MonoBehaviour
         if (col.gameObject.tag.Equals("Player"))
         {
             isMoving = false;
+            isMelee = true;
         }
     }
 
@@ -104,6 +94,36 @@ public class BigEnemy : MonoBehaviour
         if (!col.gameObject.tag.Equals("Player"))
         {
             isMoving = true;
+            isMelee = false;
+        }
+    }
+
+    void StopAndHit()
+    {
+        GetComponent<NavMeshAgent>().speed = 0.0f;
+        delay += Time.deltaTime;
+        
+        if (delay >= 0.5f)
+        {
+            anim.Play("Melee");
+            delay = 0.0f;
+        }
+    }
+
+    void Walk()
+    {
+        anim.Play("Walk");
+        GetComponent<NavMeshAgent>().speed = 1.5f;
+    }
+
+    void Die()
+    {
+        if (dead)
+        {
+            isMoving = false;
+            GetComponent<NavMeshAgent>().speed = 0.0f;
+            Destroy(gameObject, 1.5f);
+            anim.Play("Death");
         }
     }
 }

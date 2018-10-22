@@ -7,8 +7,6 @@ public class PlayerJoyStickMovement : MonoBehaviour
     public float speed = 5.0f;
     public float rotationSpeed = 100.0f;
 
-    private bool walking;
-    private bool idle;
     private Vector3 movement;
     private Rigidbody rb;
 
@@ -28,42 +26,19 @@ public class PlayerJoyStickMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //var rigidbody = GetComponent<Rigidbody>();
-
-        //rigidbody.velocity = new Vector3(joystick.Horizontal * 5f, rigidbody.velocity.y, joystick.Vertical * 5f);
-
-        // Move translation along the object's x and z axis
-        // transform.position += new Vector3(joystick.Horizontal * speed * Time.deltaTime, 0, joystick.Vertical * speed * Time.deltaTime);
-
         // Joystick not pressed, play player's Idle animation
         /*if (!joystick.Pressed)
         {
-            walking = false;
-            idle = true;
+            anim.Play("idle");
         }
-        if (joystick.Pressed) // Joystick pressed, play player's Walking animation
+        else if (joystick.Pressed) // Joystick pressed, play player's Walking animation
         {
-            walking = true;
-            idle = false;
+            anim.Play("walk");
         }*/
-
-        if (!walking && idle)
-        {
-            anim.SetBool("walk", false);
-            anim.SetBool("idle", true);
-        }
-
-        if (walking && !idle)
-        {
-            anim.SetBool("walk", true);
-            anim.SetBool("idle", false);
-        }
 
         if (PlayerStatus.health <= 0f)
         {
             joystick.Pressed = false;
-            GetComponent<Enemy>().agent.speed = 0.0f;
-            GetComponent<BigEnemy>().agent.speed = 0.0f;
         }
     }
 
@@ -76,6 +51,9 @@ public class PlayerJoyStickMovement : MonoBehaviour
         {
             h = joystickMove.Horizontal;
             v = joystickMove.Vertical;
+            //anim.SetTrigger("isWalking");
+            //anim.ResetTrigger("isIdle");
+            anim.Play("walk");
         }
         else
         {
@@ -95,13 +73,15 @@ public class PlayerJoyStickMovement : MonoBehaviour
         if (movement.sqrMagnitude > 0.0f)
         {
             transform.rotation = Quaternion.LookRotation(movement);
-            walking = true;
-            idle = false;
+            //anim.SetTrigger("isWalking");
+            //anim.ResetTrigger("isIdle");
+            anim.Play("walk");
         }
         else
         {
-            walking = false;
-            idle = false;
+            //anim.SetTrigger("isIdle");
+            //anim.ResetTrigger("isWalking");
+            anim.Play("idle");
         }
 
         rb.MovePosition(transform.position + movement);

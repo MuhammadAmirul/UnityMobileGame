@@ -19,7 +19,6 @@ public class FixedJoystick : Joystick
         inputVector = (direction.magnitude > background.sizeDelta.x / 2f) ? direction.normalized : direction / (background.sizeDelta.x / 2f);
         ClampJoystick();
         handle.anchoredPosition = (inputVector * background.sizeDelta.x / 2f) * handleLimit;
-        Pressed = true;
     }
 
     public override void OnPointerDown(PointerEventData eventData)

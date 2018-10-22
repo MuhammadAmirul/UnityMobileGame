@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerStatus : MonoBehaviour
 {
     public Image healthbar;
-    public GameObject loseGame;
+    //public GameObject loseGame;
 
     public static float health;
     public float maxHealth = 100f;
@@ -19,7 +19,7 @@ public class PlayerStatus : MonoBehaviour
     void Start ()
     {
         health = maxHealth;
-        loseGame.gameObject.SetActive(false);
+        //loseGame.gameObject.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -34,7 +34,7 @@ public class PlayerStatus : MonoBehaviour
             if(dying >= 1.2f)
             {
                 Destroy(gameObject);
-                loseGame.gameObject.SetActive(true);
+                //loseGame.gameObject.SetActive(true);
             }
             
         }
