@@ -4,38 +4,30 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
-    private float speed = 10f;
-
-    public Transform target;
+    public float speed;
 
     // Use this for initialization
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
-    void OnTriggerEnter(Collider col)
+    /*private void OnCollisionEnter(Collision col)
     {
-
-
-    }
-
-    void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.tag.Equals("Player"))
+        if (col.gameObject.tag == "Player" || col.gameObject.tag == "Wall")
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
 
-        if (col.gameObject.tag.Equals("Wall"))
-        {
-            Destroy(gameObject);
-        }
+    }*/
+    public void Despawn()
+    {
+        Destroy(this.gameObject);
     }
 }

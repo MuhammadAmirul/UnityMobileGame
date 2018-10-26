@@ -5,50 +5,84 @@ using UnityEngine.UI;
 
 public class PlayerStatus : MonoBehaviour
 {
-    public Image healthbar;
-    //public GameObject loseGame;
+    public Image healthBar;
+    public GameObject loseGame;
 
-    public static float health;
-    public float maxHealth = 100f;
-
+    public float health;
+    public float maxHealth = 20f;
     private float dying;
+    public static bool fullHealth;
+    public static bool dead;
 
     public Animator anim;
 
+    private void Awake()
+    {
+        
+    }
     // Use this for initialization
     void Start ()
     {
         health = maxHealth;
-        //loseGame.gameObject.SetActive(false);
+        loseGame.gameObject.SetActive(false);
+        dead = false;
+        dying = 0.0f;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    void Update()
     {
-        healthbar.fillAmount = health / maxHealth;
+        if (health == maxHealth)
+        {
+            fullHealth = true;
+        }
+        else if (health < maxHealth)
+        {
+            fullHealth = false;
+        }
+    }
+
+    // Update is called once per frame
+    void FixedUpdate ()
+    {
+        healthBar.fillAmount = health / maxHealth;
 
         if (health <= 0f)
         {
+            dead = true;
             dying += Time.deltaTime;
             anim.Play("death");
-            if(dying >= 1.2f)
+            if (dying >= 1.2f)
             {
-                Destroy(gameObject);
-                //loseGame.gameObject.SetActive(true);
+                gameObject.SetActive(false);
+                loseGame.gameObject.SetActive(true);
             }
-            
+        }
+
+        if (health >= maxHealth)
+        {
+            health = maxHealth;
         }
     }
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.tag.Equals("Enemy Bullet"))
+        if (col.gameObject.tag.Equals("Enemy Bullet") || col.gameObject.tag.Equals("Melee"))
         {
-            health -= 5f;
+            health -= 1f;
+            anim.SetTrigger("isHit");
         }
-        if (col.gameObject.tag.Equals("Melee"))
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag == "Health" && health < maxHealth)
         {
-            health -= 10f;
+            health += 5f;
+        }
+
+        if (col.gameObject.tag == "Speed")
+        {
+            GetComponent<PlayerControllerV2>().boosted = true;
         }
     }
 }

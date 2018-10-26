@@ -8,13 +8,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 494813e88bbbdcf45a3ef015321a68be
   - enabled: 0
     path: Assets/Scenes/GameLevelEnvironment 1.unity
     guid: aa9d4bf16a8d0b04898430481ec4c698
   - enabled: 1
-    path: Assets/Scenes/TestingV2.unity
+    path: Assets/Scenes/GymAmirul/TestingV2.unity
     guid: b7123693cf8654f43ba950e870065f33
+  - enabled: 0
+    path: Assets/Scenes/GymMarcus/Gym_Marcus.unity
+    guid: 3cce5d591e9e9fb4aba2519cb1d0a4b1
   m_configObjects: {}

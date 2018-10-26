@@ -110,18 +110,17 @@ GameObject:
   m_Component:
   - component: {fileID: 4108182944283992}
   - component: {fileID: 95153460329289424}
-  - component: {fileID: 114854139743066982}
   - component: {fileID: 195376293437504926}
   - component: {fileID: 65961378410885570}
-  - component: {fileID: 135150882493687390}
-  - component: {fileID: 114477425793227650}
+  - component: {fileID: 135413663452081142}
+  - component: {fileID: 114470057090018570}
   m_Layer: 0
   m_Name: Enemy Penguin
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1048662314581984
 GameObject:
   m_ObjectHideFlags: 1
@@ -1727,14 +1726,13 @@ GameObject:
   - component: {fileID: 223957038322324374}
   - component: {fileID: 114849083319145268}
   - component: {fileID: 114831105090376120}
-  - component: {fileID: 114813802535122480}
   m_Layer: 5
   m_Name: Canvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1772566231617858
 GameObject:
   m_ObjectHideFlags: 1
@@ -2591,8 +2589,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1048631270094932}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.39, y: -0.724, z: 18.95}
-  m_LocalScale: {x: 90, y: 90, z: 90}
+  m_LocalPosition: {x: -0.59, y: 0.03, z: 14.88}
+  m_LocalScale: {x: 65, y: 75, z: 75}
   m_Children:
   - {fileID: 4464363316116804}
   - {fileID: 4658323769590056}
@@ -2858,7 +2856,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1187820215350042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00616, y: 0.00635, z: 0.00395}
+  m_LocalPosition: {x: 0.00382, y: 0.00635, z: 0.007480004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4108182944283992}
@@ -3023,7 +3021,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1929165631062192}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00632, y: 0.0063499995, z: 0.0039499914}
+  m_LocalPosition: {x: -0.00439, y: 0.0063499995, z: 0.0073}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Children: []
   m_Father: {fileID: 4108182944283992}
@@ -4534,7 +4532,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114477425793227650
+--- !u!114 &114470057090018570
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4542,22 +4540,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1048631270094932}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b60fb2e2654a9241b2bd770efcf4433, type: 3}
+  m_Script: {fileID: 11500000, guid: 0972a6917681d4c4ebe6236e747569c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 224357411535668156}
-  offset: {x: 0, y: 0, z: 0}
---- !u!114 &114813802535122480
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1771979969597236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11f50b933421a264eb624ab83e3aac1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  cam: {fileID: 0}
+  agent: {fileID: 195376293437504926}
+  statsUI: {fileID: 0}
+  dead: 0
+  health: 0
+  maxHealth: 5
+  anim: {fileID: 95153460329289424}
+  enemyBullet: {fileID: 0}
+  spawnBullet:
+  - {fileID: 4228139234801522}
+  - {fileID: 4273103331222502}
+  healthBar: {fileID: 0}
+  HealthBar: {fileID: 0}
 --- !u!114 &114831105090376120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4595,31 +4594,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114854139743066982
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1048631270094932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0972a6917681d4c4ebe6236e747569c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  cam: {fileID: 0}
-  agent: {fileID: 195376293437504926}
-  health: 10
-  maxHealth: 10
-  anim: {fileID: 95153460329289424}
-  enemyBullet: {fileID: 1977558606237732, guid: 0cd8259061817464e97bab9c99602f58,
-    type: 2}
-  spawnBullet:
-  - {fileID: 4228139234801522}
-  - {fileID: 4273103331222502}
-  healthBar: {fileID: 114434570410263544}
-  HealthBar: {fileID: 1293319531823746}
---- !u!135 &135150882493687390
+--- !u!135 &135413663452081142
 SphereCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4629,8 +4604,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.025
-  m_Center: {x: 0, y: 0.009, z: 0}
+  m_Radius: 0.03
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137062051297354946
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -4765,14 +4740,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1771979969597236}
-  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.013773331, y: 0.017389998, z: 0.01111111}
   m_Children:
   - {fileID: 224026687781217874}
   m_Father: {fileID: 4108182944283992}
   m_RootOrder: 49
-  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.01471}
