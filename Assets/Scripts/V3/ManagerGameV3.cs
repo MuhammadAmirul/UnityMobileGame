@@ -2,228 +2,275 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
+using TMPro;
+
+public enum UNITFACTION
+{
+    NONE,
+    PLAYER,
+    ENEMY
+}
+
+public enum UNITTYPE
+{
+    A,
+    B,
+    C
+}
 
 public class ManagerGameV3 : MonoBehaviour
 {
-    [Header("Manually Assigned Variables")]
-    public EnemyV3[] PrefabEnemies;
+    public CinemachineVirtualCamera camOrtho;
+    public Transform[] tSpawnPoints;
+    public Unit[] prefabUnits;
+    public Projectile[] prefabProjectiles;
+    public FixedJoystick[] controlJoysticks;    //0 = move, 1 = shoot
+    public StatsUI prefabStatsUI;
+
+    public TextMeshProUGUI tmTimer;
+    public TextMeshProUGUI tmKills;
 
 
-    [Space]
-    [Header("Game Related Vars")]
-    public int score;
-    //private bool isSpawning = true;
-    //private float timeSpawn = 5.0f;
-    private float Timer;
-    private float timeToSpawn;
-    private float bigSpawn;
-    public int addEnemies;
-    public static int killCount;
+    private float timeSurvived;
+    private int countKills;
+    private int countSpawns;
 
-    [Space]
-    [Header("Player/Enemy Related Vars")]
-    public PlayerStatus player;
-    public EnemyHealthBarPosition prefabEnemyStatUI;
-    public EnemyPenguinStatus prefabEnemy;
-    public Transform[] enemySpawnPoints;
-    private List<EnemyPenguinStatus> listGarbageEnemies;
-    private List<EnemyHealthBarPosition> listGarbageEnemyUIs;
+    private float spawnRate = 5f;
 
+    private List<Unit> listGarbageUnits;
+    private List<StatsUI> listGarbageStatsUI;
+    private List<Projectile> listGarbageProjectiles;
 
-    [Space]
-    [Header("UI Related Vars")]
-    public Canvas canvasMenus;
-    public Canvas canvas3D;
-    public Text timerText;
-    public Text enemies;
-    public Text killCountText;
-
+    [HideInInspector] public Unit unitPlayer;
 
     private void Awake()
     {
-        listGarbageEnemies = new List<EnemyPenguinStatus>();
-        listGarbageEnemyUIs = new List<EnemyHealthBarPosition>();
+        listGarbageUnits = new List<Unit>();
+        listGarbageStatsUI = new List<StatsUI>();
+        listGarbageProjectiles = new List<Projectile>();
+
+        InitGame();
     }
 
-    private void Start()
+    private void LateUpdate()
     {
-        /*if (isSpawning)
-        {
-            InvokeRepeating("SpawnEnemy", timeSpawn, timeSpawn);
-        }*/
+        // Update timer
+        timeSurvived += Time.deltaTime;
+
+        float roundTime = Mathf.Round(timeSurvived * 100f) / 100f;
+        tmTimer.text = "TIME: " + roundTime;
     }
 
-    void FixedUpdate()
+    public void UpdateKills(int i)
     {
-        if (PlayerStatus.dead == false)
-        {
-            Timer += Time.deltaTime;
-            timeToSpawn += Time.deltaTime;
+        countKills += i;
 
-            timerText.text = Mathf.Round(Timer).ToString();
-            enemies.text = addEnemies.ToString();
-            killCountText.text = killCount.ToString();
+        tmKills.text = "KILLS: " + countKills;
+    }
 
-            if (Timer < 30f)
-            {
-                if (timeToSpawn >= 8f)
-                {
-                    SpawnEnemy();
-                    timeToSpawn = 0f;
-                    addEnemies += 1;
-                }
-            }
+    public void InitGame()
+    {
+        // For now, a zero condition game init call from previous screen that starts the game.
 
-            if (Timer >= 30f)
-            {
-                if (timeToSpawn >= 5f)
-                {
-                    SpawnEnemy();
-                    timeToSpawn = 0f;
-                    addEnemies += 1;
-                }
-            }
+        // 1st - Set all existing garbage collected to deactivate, so it can be ready for new game.
+        RecycleAllGarbage();
 
-            if (Timer >= 45f)
-            {
-                bigSpawn += Time.deltaTime;
+        // 2nd - Reset scores and time
+        timeSurvived = 0f;
+        countKills = 0;
+        UpdateGameUI();
 
-                if (timeToSpawn >= 3f)
-                {
-                    SpawnEnemy();
-                    timeToSpawn = 0f;
-                    addEnemies += 1;
-                }
+        // 3rd - Init Player.
+        SpawnUnit(UNITFACTION.PLAYER, UNITTYPE.A);
 
-                if (bigSpawn >= 8f)
-                {
-                    SpawnEnemy();
-                    bigSpawn = 0f;
-                    addEnemies += 1;
-                }
-            }
-        }
+        // 4th - Spawn Enemies.
+        InvokeRepeating("SpawnEnemy", 3f, spawnRate);
+    }
 
-        /*if (GetComponent<EnemyPenguinStatus>().dead == true)
-        {
-            score += 1;
-            addEnemies -= 1;
-        }*/
+    private void UpdateGameUI()
+    {
+
     }
 
     public void SpawnEnemy()
     {
-        EnemyPenguinStatus newEnemyPenguin = CheckForAvailableGarbageEnemy();
-        EnemyHealthBarPosition newEnemyUI = CheckForAvailableGarbageEnemyUI();
-
-        Transform spawnPoint = FindFurthestSpawnPoint();
-
-        if (newEnemyPenguin == null)
-        {
-            //Debug.Log("Instantiating new enemy");
-            //Instantiate.
-            newEnemyPenguin = Instantiate(prefabEnemy, spawnPoint.position, spawnPoint.rotation);
-
-            listGarbageEnemies.Add(newEnemyPenguin);
-        }
-        else
-        {
-            //Debug.Log("Recycling new enemy");
-            newEnemyPenguin.transform.position = spawnPoint.position;
-        }
-
-        if(newEnemyUI == null)
-        {
-            newEnemyUI = Instantiate(prefabEnemyStatUI, Vector3.zero, Quaternion.identity);
-            newEnemyUI.transform.SetParent(prefabEnemyStatUI.transform.parent, true);
-            newEnemyUI.transform.localScale = Vector3.one;
-            RectTransform rtUI = newEnemyUI.transform as RectTransform;
-
-            rtUI.SetAsFirstSibling();
-            listGarbageEnemyUIs.Add(newEnemyUI);
-        }
-        else
-        {
-
-        }
-
-        newEnemyPenguin.transform.position = spawnPoint.position;
-        newEnemyPenguin.gameObject.SetActive(true);
-        newEnemyUI.gameObject.SetActive(true);
-
-        //Pair UI and unit.
-        newEnemyUI.target = newEnemyPenguin.transform;
-        newEnemyPenguin.statsUI = newEnemyUI;
-
-        newEnemyPenguin.Init();
+        SpawnUnit(UNITFACTION.ENEMY, UNITTYPE.B);
+        countSpawns++;
+        AdjustSpawnRate();
     }
 
-    private EnemyHealthBarPosition CheckForAvailableGarbageEnemyUI()
+    private void AdjustSpawnRate()
     {
-        EnemyHealthBarPosition ui = null;
+        int spawnFactor = countSpawns / 10;
 
-        if (listGarbageEnemyUIs.Count > 0)
+        float newSpawnRate = 5.0f - (0.5f * spawnFactor);
+        newSpawnRate = Mathf.Clamp(spawnRate, 2.0f, 5.0f);
+
+        if(newSpawnRate < spawnRate)
         {
-            //Check which one is active.
-            foreach (EnemyHealthBarPosition u in listGarbageEnemyUIs)
+            CancelInvoke("SpawnEnemy");
+            InvokeRepeating("SpawnEnemy", newSpawnRate, newSpawnRate);
+            spawnRate = newSpawnRate;
+        }
+    }
+
+    private void SpawnUnit(UNITFACTION faction, UNITTYPE type)
+    {
+        // Spawn unit gameobject first.
+        Unit unitToSpawn = SpawnOrRecycleUnit(type);
+
+        // Attach a stats UI to it as well.
+        unitToSpawn.statsUI = SpawnOrRecycleStatsUI();
+
+        if(faction == UNITFACTION.PLAYER)
+        {
+            // Set camera focus on unit.
+            camOrtho.Follow = unitToSpawn.transform;
+            unitPlayer = unitToSpawn;
+            unitToSpawn.transform.position = new Vector3(0f, 0f, 1f);
+        }
+        else if (faction == UNITFACTION.ENEMY)
+        {
+            // Find the furthest spawn point from player.
+            unitToSpawn.transform.position = GetFurthestSpawnPoint();
+        }
+
+        unitToSpawn.gameObject.SetActive(true);
+        unitToSpawn.Init(faction);
+    }
+
+    private Vector3 GetFurthestSpawnPoint()
+    {
+        Vector3 pos = Vector3.zero;
+        float dist = 0f;
+
+        foreach (Transform pt in tSpawnPoints)
+        {
+            float ptDist = Vector3.Distance(unitPlayer.transform.position, pt.position);
+            if(ptDist > dist)
             {
-                if (!u.isActiveAndEnabled)
+                pos = pt.position;
+                dist = ptDist;
+            }
+        }
+
+        return pos;
+    }
+
+    private Unit SpawnOrRecycleUnit(UNITTYPE type)
+    {
+        Unit unitToReturn = null;
+
+        // Iterate through existing garbage list first.
+        foreach(Unit u in listGarbageUnits)
+        {
+            switch (type)
+            {
+                case UNITTYPE.A:
+                    //Check for 2 conditions: Unit Type and availability.
+                    if(u.unitType == UNITTYPE.A && !u.isActiveAndEnabled)
+                    {
+                        unitToReturn = u;
+                    }
+                    break;
+
+                case UNITTYPE.B:
+                    if (u.unitType == UNITTYPE.B && !u.isActiveAndEnabled)
+                    {
+                        unitToReturn = u;
+                    }
+                    break;
+
+                case UNITTYPE.C:
+                    if (u.unitType == UNITTYPE.C && !u.isActiveAndEnabled)
+                    {
+                        unitToReturn = u;
+                    }
+                    break;
+            }
+        }
+
+        // Now, if it's still null, then we instantiate and return.
+
+        if(unitToReturn == null)
+        {
+            // Iterate through unit prefabs and inst.
+            foreach(Unit prefabUnit in prefabUnits)
+            {
+                if(prefabUnit.unitType == type)
                 {
-                    ui = u;
+                    GameObject inst = Instantiate(prefabUnit.gameObject, Vector3.zero, Quaternion.identity) as GameObject;
+                    unitToReturn = inst.GetComponent<Unit>();
+
+                    // Add to garbage list.
+                    listGarbageUnits.Add(unitToReturn);
                 }
             }
         }
+        return unitToReturn;
+    } 
 
-        return ui;
-    }
-
-    private EnemyPenguinStatus CheckForAvailableGarbageEnemy()
+    private StatsUI SpawnOrRecycleStatsUI()
     {
-        EnemyPenguinStatus returnEnemy = null;
+        StatsUI statsUIToReturn = null;
 
-        //Go through list and return any inactive spawned enemy.
-        if (listGarbageEnemies.Count > 0)
+        foreach(StatsUI ui in listGarbageStatsUI)
         {
-            foreach (EnemyPenguinStatus ec in listGarbageEnemies)
+            if (!ui.isActiveAndEnabled)
             {
-                if (!ec.isActiveAndEnabled)
-                {
-                    returnEnemy = ec;
-                }
+                statsUIToReturn = ui;
             }
         }
 
-        return returnEnemy;
+        if(statsUIToReturn == null)
+        {
+            GameObject inst = Instantiate(prefabStatsUI.gameObject, prefabStatsUI.transform.parent) as GameObject;
+            statsUIToReturn = inst.GetComponent<StatsUI>();
+            statsUIToReturn.transform.SetSiblingIndex(1);
+
+            listGarbageStatsUI.Add(statsUIToReturn);
+        }
+
+        return statsUIToReturn;
     }
 
-    private Transform FindFurthestSpawnPoint()
+    public Projectile SpawnOrRecycleProjectile()
     {
-        Transform spawnPoint = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length)];
+        Projectile projectileToReturn = null;
 
-        float distanceFromPlayer = 0f;
-
-        for (int i = 0; i < enemySpawnPoints.Length; i++)
+        foreach(Projectile p in listGarbageProjectiles)
         {
-            float pointDistance = Vector3.Distance(player.transform.position, enemySpawnPoints[i].position);
-            if (pointDistance > distanceFromPlayer)
+            if (!p.isActiveAndEnabled)
             {
-                distanceFromPlayer = pointDistance;
-                spawnPoint = enemySpawnPoints[i];
+                projectileToReturn = p;
             }
         }
 
-        return spawnPoint;
+        if(projectileToReturn == null)
+        {
+            GameObject inst = Instantiate(prefabProjectiles[0].gameObject) as GameObject;
+            projectileToReturn = inst.GetComponent<Projectile>();
+
+            listGarbageProjectiles.Add(projectileToReturn);
+        }
+
+        return projectileToReturn;
     }
 
-    public void GamePause(bool b)
+    private void RecycleAllGarbage()
     {
-        if (b)
+        foreach(Unit u in listGarbageUnits)
         {
-            Time.timeScale = 0f;
+            u.Recycle();
         }
-        else
+        foreach(StatsUI s in listGarbageStatsUI)
         {
-            Time.timeScale = 1f;
+            s.Recycle();
+        }
+        foreach(Projectile p in listGarbageProjectiles)
+        {
+            p.Recycle();
         }
     }
 }

@@ -12,6 +12,7 @@ TagManager:
   - Melee
   - Health
   - Speed
+  - UNIT
   layers:
   - Default
   - TransparentFX
